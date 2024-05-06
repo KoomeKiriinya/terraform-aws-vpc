@@ -1612,5 +1612,4 @@ variable "vpc_id" {
   description = "The vpc id on which the vpc resources are to be created in"
   type        = string 
   default     = null
-  
 }
