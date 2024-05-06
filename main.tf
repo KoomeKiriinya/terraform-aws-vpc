@@ -54,7 +54,7 @@ resource "aws_vpc_ipv4_cidr_block_association" "this" {
   count = length(var.secondary_cidr_blocks) > 0 ? length(var.secondary_cidr_blocks) : 0
 
   # Do not turn this into `local.vpc_id`
-  vpc_id = try(aws_vpc.this[0].id,var.vpc_id)
+  vpc_id = try(aws_vpc.this[0].id, var.vpc_id)
 
   cidr_block = element(var.secondary_cidr_blocks, count.index)
 }
@@ -64,7 +64,7 @@ resource "aws_vpc_ipv4_cidr_block_association" "this" {
 ################################################################################
 
 resource "aws_vpc_dhcp_options" "this" {
-  count =  var.enable_dhcp_options ? 1 : 0
+  count = var.enable_dhcp_options ? 1 : 0
 
   domain_name          = var.dhcp_options_domain_name
   domain_name_servers  = var.dhcp_options_domain_name_servers
@@ -80,7 +80,7 @@ resource "aws_vpc_dhcp_options" "this" {
 }
 
 resource "aws_vpc_dhcp_options_association" "this" {
-  count =  var.enable_dhcp_options ? 1 : 0
+  count = var.enable_dhcp_options ? 1 : 0
 
   vpc_id          = local.vpc_id
   dhcp_options_id = aws_vpc_dhcp_options.this[0].id
@@ -1056,7 +1056,7 @@ locals {
 }
 
 resource "aws_eip" "nat" {
-  count =  var.enable_nat_gateway && !var.reuse_nat_ips ? local.nat_gateway_count : 0
+  count = var.enable_nat_gateway && !var.reuse_nat_ips ? local.nat_gateway_count : 0
 
   domain = "vpc"
 
@@ -1113,7 +1113,7 @@ resource "aws_route" "private_nat_gateway" {
 }
 
 resource "aws_route" "private_dns64_nat_gateway" {
-  count =  var.enable_nat_gateway && var.enable_ipv6 && var.private_subnet_enable_dns64 ? local.nat_gateway_count : 0
+  count = var.enable_nat_gateway && var.enable_ipv6 && var.private_subnet_enable_dns64 ? local.nat_gateway_count : 0
 
   route_table_id              = element(aws_route_table.private[*].id, count.index)
   destination_ipv6_cidr_block = "64:ff9b::/96"
@@ -1231,7 +1231,7 @@ resource "aws_default_vpc" "this" {
 resource "aws_default_security_group" "this" {
   count = var.manage_default_security_group ? 1 : 0
 
-  vpc_id = try(aws_vpc.this[0].id,var.vpc_id)
+  vpc_id = try(aws_vpc.this[0].id, var.vpc_id)
 
   dynamic "ingress" {
     for_each = var.default_security_group_ingress
@@ -1277,7 +1277,7 @@ resource "aws_default_security_group" "this" {
 resource "aws_default_network_acl" "this" {
   count = var.manage_default_network_acl ? 1 : 0
 
-  default_network_acl_id = try(aws_vpc.this[0].default_network_acl_id,var.default_network_acl_id)
+  default_network_acl_id = try(aws_vpc.this[0].default_network_acl_id, var.default_network_acl_id)
 
   # subnet_ids is using lifecycle ignore_changes, so it is not necessary to list
   # any explicitly. See https://github.com/terraform-aws-modules/terraform-aws-vpc/issues/736
@@ -1328,9 +1328,9 @@ resource "aws_default_network_acl" "this" {
 ################################################################################
 
 resource "aws_default_route_table" "default" {
-  count =  var.manage_default_route_table ? 1 : 0
+  count = var.manage_default_route_table ? 1 : 0
 
-  default_route_table_id = try(aws_vpc.this[0].default_route_table_id,var.default_route_table_id)
+  default_route_table_id = try(aws_vpc.this[0].default_route_table_id, var.default_route_table_id)
   propagating_vgws       = var.default_route_table_propagating_vgws
 
   dynamic "route" {
