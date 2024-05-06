@@ -1607,3 +1607,10 @@ variable "putin_khuylo" {
   type        = bool
   default     = true
 }
+
+variable "vpc_id" {
+  description = "The vpc id on which to pass the resources"
+  type        = string 
+  default     = null
+  
+}
