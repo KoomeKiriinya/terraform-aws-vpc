@@ -1613,3 +1613,15 @@ variable "vpc_id" {
   type        = string 
   default     = null
 }
+
+variable "default_network_acl_id" {
+  description = "The default network acl id of the already existing vpc"
+  type        = string
+  default     = null
+}
+
+variable "default_route_table_id" {
+  description = "The default route table id of the already existing vpc"
+  type        = string
+  default     = null
+}

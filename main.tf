@@ -1231,7 +1231,7 @@ resource "aws_default_vpc" "this" {
 resource "aws_default_security_group" "this" {
   count = var.manage_default_security_group ? 1 : 0
 
-  vpc_id = aws_vpc.this[0].id
+  vpc_id = try(aws_vpc.this[0].id,var.vpc_id)
 
   dynamic "ingress" {
     for_each = var.default_security_group_ingress
@@ -1277,7 +1277,7 @@ resource "aws_default_security_group" "this" {
 resource "aws_default_network_acl" "this" {
   count = var.manage_default_network_acl ? 1 : 0
 
-  default_network_acl_id = aws_vpc.this[0].default_network_acl_id
+  default_network_acl_id = try(aws_vpc.this[0].default_network_acl_id,var.default_network_acl_id)
 
   # subnet_ids is using lifecycle ignore_changes, so it is not necessary to list
   # any explicitly. See https://github.com/terraform-aws-modules/terraform-aws-vpc/issues/736
@@ -1330,7 +1330,7 @@ resource "aws_default_network_acl" "this" {
 resource "aws_default_route_table" "default" {
   count =  var.manage_default_route_table ? 1 : 0
 
-  default_route_table_id = aws_vpc.this[0].default_route_table_id
+  default_route_table_id = try(aws_vpc.this[0].default_route_table_id,var.default_route_table_id)
   propagating_vgws       = var.default_route_table_propagating_vgws
 
   dynamic "route" {
