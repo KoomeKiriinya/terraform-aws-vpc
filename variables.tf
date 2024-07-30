@@ -1625,3 +1625,9 @@ variable "default_route_table_id" {
   type        = string
   default     = null
 }
+
+variable "default_internet_gateway_id" {
+  description = "The default internet_gateway_id of the already existing vpc"
+  type        = string
+  default     = null
+}
