@@ -1632,6 +1632,6 @@ variable "public_route_table_id" {
 }
 
 variable "internet_gateway_id" {
-  description = "The  internet_gateway_id attached to the already existing vpc"
+  description = "The internet gateway id attached to the already existing vpc"
   type        = string
 }
