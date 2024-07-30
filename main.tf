@@ -1329,7 +1329,7 @@ resource "aws_default_network_acl" "this" {
 resource "aws_default_route_table" "default" {
   count = var.manage_default_route_table ? 1 : 0
 
-  default_route_table_id = try(aws_vpc.this[0].default_route_table_id, var.default_route_table_id)
+  default_route_table_id = try(aws_vpc.this[0].default_route_table_id, var.public_route_table_id)
   propagating_vgws       = var.default_route_table_propagating_vgws
 
   dynamic "route" {
