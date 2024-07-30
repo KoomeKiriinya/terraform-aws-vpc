@@ -1620,14 +1620,14 @@ variable "default_network_acl_id" {
   default     = null
 }
 
-variable "default_route_table_id" {
-  description = "The default route table id of the already existing vpc"
+variable "public_route_table_id" {
+  description = "The public route table id of the vpc"
   type        = string
   default     = null
 }
 
-variable "default_internet_gateway_id" {
-  description = "The default internet_gateway_id of the already existing vpc"
+variable "internet_gateway_id" {
+  description = "The  internet_gateway_id attached to the already existing vpc"
   type        = string
   default     = null
 }
