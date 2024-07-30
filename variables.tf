@@ -1620,6 +1620,12 @@ variable "default_network_acl_id" {
   default     = null
 }
 
+variable "default_route_table_id" {
+  description = "The default route table id of the vpc"
+  type        = string
+  default     = null
+}
+
 variable "public_route_table_id" {
   description = "The public route table id of the vpc"
   type        = string
