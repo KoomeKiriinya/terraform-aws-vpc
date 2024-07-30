@@ -1607,3 +1607,27 @@ variable "putin_khuylo" {
   type        = bool
   default     = true
 }
+
+variable "vpc_id" {
+  description = "The vpc id on which the vpc resources are to be created in"
+  type        = string
+  default     = null
+}
+
+variable "default_network_acl_id" {
+  description = "The default network acl id of the already existing vpc"
+  type        = string
+  default     = null
+}
+
+variable "public_route_table_id" {
+  description = "The public route table id of the vpc"
+  type        = string
+  default     = null
+}
+
+variable "internet_gateway_id" {
+  description = "The  internet_gateway_id attached to the already existing vpc"
+  type        = string
+  default     = null
+}
